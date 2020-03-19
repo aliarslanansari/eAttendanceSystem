@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>  
+ <!-- Staff Entry Page !-->  
+ <html>  
+      <head> 
+	  
+		<link rel="icon" href="icon.png">
+		<link href="../bpl.css" rel="stylesheet">  
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+	  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	  <meta http-equiv="Pragma" content="no-cache" />
+	  <meta http-equiv="Expires" content="-1" />
+           <title>Welcome</title>  
+           <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">  
+           <script src="angular.min.js"></script>
+	<SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "../index.html";
+ }
+ if(localStorage.getItem('type') == 'STAFF')
+			 {
+			 window.location.href = "../staff/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'CLERK')
+			 {
+			 window.location.href = "../clerk/staff.html";
+			 }
+</SCRIPT>
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <style>
+  body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+	}</style>
+      <SCRIPT type="text/javascript">
+//history.go(-(history.length - 1));
+   function preventBack(){window.history.forward();}
+
+    setTimeout("preventBack()", 0);
+
+    window.onunload=function(){null};
+
+</script>
+</SCRIPT>
+</HEAD>
+<BODY >
+	<form ng-app="myapp"    name="stud_form" ng-controller="usercontroller" >
+	  <!-- fixed navigation bar -->
+	  <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active" ><a href="#">Home</a></li>
+		<li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Take Attendance
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li ><a href="present.html">Take Attendance</a></li>
+        <li ><a href="present_update.html">Update Attendance</a></li>
+        </ul>
+      </li>
+        <li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Details
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+		<li><a href="subject_details.html">Your Subjects</a></li>
+		<li><a href="staff_details.html">Staff Details</a></li>
+		<li><a href="stud_details.html">Students Details</a></li>
+		<li><a href="sub_whole.html">All Subjects Details</a></li>
+        </ul>
+      </li>
+		<li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Your Subject Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports.html">Up-to-Date Report</a></li>
+          <li ><a href="report1.html">Date-Wise Report</a></li>
+		  <li><a href="daily_report.html">Daily Report</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject Wise Report
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports_sub.html">Up-to-Date Report</a></li>
+          <li ><a href="report1_sub.html">Date-Wise Report</a></li>
+		  <li><a href="daily_report_sub.html">Daily Report</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Class Wise Report
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports_whole.html">Up-to-Date Report</a></li>
+          <li ><a href="report1_whole.html">Date-Wise Report</a></li>
+		  <li><a href="daily_report_whole.html">Daily Report</a></li>
+        </ul>
+      </li>
+	  
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ <!-- /.navbar -->
+<br><br><br>
+           <br /><br />  
+           <div class="container" ng-click="closen()">  
+		   <div class="col-sm-6">
+		   <p id="demo" style="color:red" > </p>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+		<p><h2 style="color:white" >Welcome, {{email}} </h2></p>
+		<br /><br />  <br /><br />  <br /><br />  <br /><br />  <br /><br />  <br /><br />  <br />
+           </div>  
+		   </div>
+		   </form>
+      </body>  
+ </html>
+ <script>  
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){  
+ 
+ $scope.email=localStorage.getItem('email');
+  $scope.type=localStorage.getItem('type');
+  $scope.staff_id=localStorage.getItem('staff_id');
+
+	  $scope.closen =function (){
+$(".navbar-collapse").collapse('hide');	  
+}
+		$scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		localStorage.removeItem('type');
+		localStorage.removeItem('staff_id');
+		window.location.href = "../index.html";
+		}
+ });  
+ </script>

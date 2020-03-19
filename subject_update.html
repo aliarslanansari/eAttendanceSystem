@@ -1,0 +1,286 @@
+<!DOCTYPE html>  
+ <!-- Studens Entry Page !-->  
+ <html>  
+      <head>  
+	  <link rel="icon" href="icon.png">
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+           <title>Subject Updation</title>  
+           <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="bpl.css" rel="stylesheet">  
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "index.html";
+ }
+</SCRIPT>
+  <style>
+  .panel{
+margin-right:10px;
+margin-left:10px;
+}
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+   
+   body {
+    background-image: url("bluebg.jpg");
+	 background-repeat: no-repeat;
+	  -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+	</style>
+      </head>  
+      <body ng-app="myapp" ng-controller="usercontroller">
+	  <!-- fixed navigation bar -->
+    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="staff.html">Home</a></li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="registration.html">Student Registration</a></li>
+		  <li ><a href="stud_update.html">Student Updation</a></li>
+		  <li><a href="promote.html">Student Promotion</a></li>
+		  <li ><a href="stud_details.html">Student Details</a></li>
+        </ul>
+      </li>
+	  <li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="staff_entry.html">Staff Registration</a></li>
+		  <li><a href="Staff_update.html">Staff Updation</a></li>
+		  <li><a href="staff_entry.html">Staff Details</a></li>
+        </ul>
+      </li>
+	  <li  class="active" class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="subject_entry.html">Subject Registration</a></li>
+		<li class="active"><a href="subject_update.html">Subject Updation</a></li>
+		  <li><a href="subject_assign.html">Subject Assignment</a></li>
+		  <li><a href="subject_details.html">Subject Details</a></li>
+        </ul>
+      </li>
+		<li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Semester
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="sem_entry.html">Semester Registration</a></li>
+		<li><a href="sem_update.html">Semester Updation</a></li>
+		  <li><a href="sem_details.html">Semester Details</a></li>
+        </ul>
+      </li>
+		
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav> <!-- /.navbar -->
+<br><br><br>
+             
+           <div class="container">
+			<div class="row">  
+		    <div class="col-sm-6">
+		
+				<div class="panel panel-info" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Update Subject Details</label></div>
+
+                  </div>
+
+                  <div style="padding-top:30px;background:#f7f7f9;" class="panel-body" >
+					<form name="stud_form1">  
+					<div class="row">
+					<div class="form-group col-sm-12">
+					
+					<label>Old Subject Code</label>
+                     <input ng-disabled="pqr==true" type="text" name="sub_code1" ng-model="sub_code1" min="10000" ng-maxlength="5" ng-minlength="5" ng-pattern="/^[0-9]*$/" max="99999" class="form-control" required />  
+					 <label><span style="color:red" ng-show="stud_form1.sub_code1.$index.max">Not a Valid Subject Code</span></label>
+					 <span style="color:red" ng-show="stud_form1.sub_code1.$error.pattern">Not a valid Subject Code!<br></span>
+					<label>Shift</label>  
+                     <select name="shift1" ng-disabled="pqr==true" ng-model="shift1" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select> 
+					 <div class="form-inline">
+					 <label>Branch</label><br>  
+                     <select name="branch1" ng-disabled="pqr==true" ng-model="branch1"  class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE" ng-show="shift == 59">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 </select> 
+					<button type="submit" ng-disabled="stud_form1.sub_code1.$invalid || stud_form1.shift1.$invalid || stud_form1.branch1.$invalid" ng-click="updateSub();pqr=true" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> SEARCH</button> 
+					<button type="submit" ng-click="ureset()" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> RESET</button>
+						</div> <br><button type="submit" ng-click="delsub();ureset()" ng-disabled="pqr==false" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> DELETE SUBJECT</button> 
+						<br><br>
+						
+						
+						<label>New Subject Code</label>
+                     <input type="text" name="sub_code_new" ng-model="sub_code_new" min="10000" ng-maxlength="5" ng-minlength="5" ng-pattern="/^[0-9]*$/" max="99999" class="form-control" required />  
+					 <label><span style="color:red" ng-show="stud_form1.sub_code_new.$index.max">Not a Valid Subject Code</span></label>
+					 <span style="color:red" ng-show="stud_form1.sub_code_new.$error.pattern">Not a valid Subject Code!<br></span>
+					
+                     <label>Subject Name</label>  
+                     <input type="text" name="sub_name" ng-model="sub_name1" class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" required> 
+					 <label><span ng-show="stud_form.firstname.$index.pattern" style="color: #dd272d;" >Not a valid Name!</span></label><br>
+                     <label>Subject Abbreviation</label>  
+                     <input type="text" name="sub_abr1" ng-model="sub_abr1" class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" required>  
+					 <label><span ng-show="stud_form.middle_name.$index.pattern" style="color: #dd272d;" >Not valid!</span></label><br>
+					 
+                       
+					 <label>Scheme</label>
+                     <select name="scheme"  ng-model="sub_scheme1" class="form-control" required>
+					 <option value="E">E-Scheme</option>
+					 <option value="G">G-Scheme</option>
+					 <option value="I">I-Scheme</option>
+					 </select>  
+                       
+                     <label>Semester</label>  
+                     <select ng-model="sub_sem1" class="form-control" required>
+						<option value="1">First</option>
+						<option value="2">Second</option>
+						<option value="3">Third</option>
+						<option value="4">Fourth</option>
+						<option value="5">Fifth</option>
+						<option value="6">Sixth</option>
+						</select><br>
+						
+                       <br /><div class="col-sm-12 controls">
+                                  <button type="submit" ng-disabled="stud_form1.$invalid || !stud_form1.$dirty" ng-click="UpdateData();stud_form1.$setPristine()" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-log-in"></i>UPDATE</button>
+                              </div><br /><br>   </div></div>
+							  
+          
+		  </form>
+		  
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div id="success-alert" class="col-md-10 col-md-offset-1">
+            <div class="alert alert-info alert-dismissible fade in text-center" ng-show="showmsg" role="alert">
+                <strong>{{showmsg}}</strong> 
+            </div>
+        </div>
+
+  </div>
+</div>
+		  
+		  
+		  
+                   
+                      
+                  </div>
+					  </div>
+				
+					
+           </div> <div class="col-sm-6">
+		   </div> </div> </div>
+      </body>  
+ </html>
+ <script>
+ 
+ /*$(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert-dismissible").alert('close');
+});*/
+ 
+
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){  
+ $scope.pqr=false;
+$scope.ureset=function()
+{
+	$scope.pqr=false;
+	$scope.sub_code1 ="";
+	$scope.shift1 ="";
+	$scope.branch1 ="";
+} 
+ $scope.updateSub = function()
+ {
+	$scope.flag=3;
+	$http.post("http://192.168.1.2/www11/subject_entry.php",  {'sub_code':$scope.sub_code1, 'shift':$scope.shift1,'branch':$scope.branch1, 'flag':$scope.flag}  
+           ).success(function(data){
+				if(data==1)
+				{
+				alert("Subject Not Found");
+				$scope.pqr=false;
+				}
+				$scope.update=data; 
+				$scope.sub_abr1 = $scope.update[0].sub_abbr;
+				$scope.sub_name1 = $scope.update[0].sub_name;
+				$scope.sub_sem1 = $scope.update[0].sub_sem;
+				$scope.sub_scheme1 = $scope.update[0].sub_scheme;
+				$scope.sub_code_new = $scope.update[0].sub_code;
+           });
+ }
+ $scope.UpdateData = function(){
+			$scope.flag=4;
+           $http.post("http://192.168.1.2/www11/subject_entry.php",  {'sub_code':$scope.sub_code1, 'sub_code_new':$scope.sub_code_new, 'sub_name':$scope.sub_name1, 'sub_abr':$scope.sub_abr1, 'shift':$scope.shift1,'branch':$scope.branch1, 'scheme':$scope.sub_scheme1, 'sem':$scope.sub_sem1,'flag':$scope.flag}
+           ).success(function(data){  
+				//$scope.showmsg=
+				alert(data); 
+           });
+      }
+	  $scope.delsub = function(){
+			$scope.flag=5;
+           $http.post("http://192.168.1.2/www11/subject_entry.php",  {'sub_code':$scope.sub_code1,'shift':$scope.shift1,'branch':$scope.branch1,'flag':$scope.flag}
+           ).success(function(data){  
+				//$scope.showmsg=
+				alert(data); 
+           });
+      }
+	 $scope.email=localStorage.getItem('email'); 
+	  $scope.type=localStorage.getItem('type');
+	  
+	  $scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.clear();
+		window.location.href = "index.html";
+		}
+	  
+ });  
+ </script>

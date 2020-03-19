@@ -1,0 +1,296 @@
+ <!DOCTYPE html>  
+ <!-- Staff Entry Page !-->  
+ <html>  
+      <head>  
+	  <link rel="icon" href="icon.png">
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+           <title>Staff Registration</title>  
+           <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">  
+           <script src="angular.min.js"></script>
+		   <link href="bpl.css" rel="stylesheet"> 
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "index.html";
+ }
+</SCRIPT>
+
+  <style>
+  .panel{
+margin-right:10px;
+margin-left:10px;
+}
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+  </style>
+      </head>  
+      <body ng-app="myapp" ng-controller="usercontroller" >  
+	  <!-- fixed navigation bar -->
+    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li  ><a href="staff.html">Home</a></li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="registration.html">Student Registration</a></li>
+		  <li ><a href="stud_update.html">Student Updation</a></li>
+		  <li><a href="promote.html">Student Promotion</a></li>
+		  <li ><a href="stud_details.html">Student Details</a></li>
+        </ul>
+      </li>
+	  <li class="active" class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="active"><a href="#">Staff Registration</a></li>
+		  <li><a href="staff_update.html">Staff Updation</a></li>
+		  <li><a href="staff_entry.html">Staff Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="subject_entry.html">Subject Registration</a></li>
+		<li><a href="subject_update.html">Subject Updation</a></li>
+		  <li><a href="subject_assign.html">Subject Assignment</a></li>
+		  <li><a href="subject_details.html">Subject Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Semester
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="sem_entry.html">Semester Registration</a></li>
+		<li><a href="sem_update.html">Semester Updation</a></li>
+		  <li><a href="sem_details.html">Semester Details</a></li>
+        </ul>
+      </li>
+		
+		
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav> <!-- /.navbar -->
+<br><br><br>
+           
+		   
+		   
+		   
+           <div class="container" ng-click="closen()">  
+		   		   <div class="row">
+		   <div class="col-sm-6">
+
+		   <div class="panel panel-info" >
+                  <div class="panel-heading">
+                      <div class="panel-title">Staff Registration</div>
+
+                  </div>
+
+                  <div style="padding-top:30px;background:#f7f7f9;" class="panel-body" >
+					<form ng-app="myapp"   ng-submit="insertData()" ng-init="displayData()" name="stud_form" ng-controller="usercontroller">  
+					<div class="row">
+					<div class="form-group col-sm-12"> 		
+					<label>Staff ID</label>  
+                     <input type="text" name="staff_id" ng-model="staff_id"  class="form-control" readonly> 
+                     <label>First Name</label>  
+                     <input type="text" name="firstname" ng-model="firstname" class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" autofocus required> 
+					 <label><span ng-show="stud_form.firstname.$error.pattern" style="color: #dd272d;" >Not a valid Name!</span></label><br>
+                     <label>Middle Name</label>  
+                     <input type="text" name="middle_name" ng-model="middlename" class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" required>  
+					 <label><span ng-show="stud_form.middle_name.$error.pattern" style="color: #dd272d;" >Not a valid Name!</span></label><br>
+					 <label>Last Name</label>  
+                     <input type="text" name="lastname" ng-model="lastname" class="form-control" ng-pattern="/^[a-zA-Z\s]*$/" required>  
+					 <label><span ng-show="stud_form.lastname.$error.pattern" style="color: #dd272d;" >Not a valid Name!</span></label><br>
+					 
+                     <label>Shift</label>  
+                     <select name="last_name" ng-model="shift" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select>  
+					 <label>Branch</label>  
+                     <select name="branch" ng-model="branch" class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 </select><br>
+					 <div class="row">
+		   <div class="col-sm-3">
+						<label>User Type (Role): </label></div>
+		   <div class="col-sm-6">						
+						<label class="radio"><input type="radio" ng-model="type" value="STAFF" name="type" required >Teaching Staff</label>
+						<label class="radio"><input type="radio" ng-model="type" value="HOD" name="type" required >Head of Department</label>
+						<label class="radio"><input type="radio" ng-model="type" value="CLERK" name="type" required >Clerk</label>
+						</div></div>
+					 <label>Login Details</label>
+					 <div  class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                      <input type="text" ng-trim="false" placeholder="User Name (Words Separated by Underscore)" name="useremail" ng-pattern="/^[a-zA-Z0-9\_]*$/" class="form-control" required ng-model="useremail">
+                          </div>
+						  <label><span ng-show="stud_form.useremail.$error.pattern" style="color: #dd272d;" >No Special Character or Whitespaces Allowed!</span></label><br>
+
+                          <div class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                      <input type="password" placeholder="Password(Min. of 8 characters)" ng-minlength="8" class="form-control" required name="userpassword" ng-model="userpassword">
+									  
+                          </div><label><span ng-show="stud_form.userpassword.$error.minlength" style="color: #dd272d;" >Password should be of atleast 8 character!</span></label>
+                       <br /><div class="col-sm-12 controls">
+                                  <button type="submit" ng-disabled="stud_form.$invalid" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-log-in"></i> ADD STAFF</button>
+                              </div><br /><br>   </div></div>
+							  
+          
+		  <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+  <center>
+    <div class="modal-content">
+       <!--<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">eAttendance System</h5>
+      </div>--> 
+      <div class="modal-body">
+	  <label><h3>{{showmsg}}</h3></label>
+      </div>
+       <div class="modal-footer">
+        
+		<button type="button" class="btn btn-default" data-dismiss="modal" ng-hide="flags==3">Close</button>
+		<a href="staff.html"><button type="button" class="btn btn-block btn-sm btn-primary" ng-show="flags==3" >OK</button></a>
+      </div>
+    </div>
+	</center>
+  </div>
+</div>
+					</form>
+                  </div>
+					  </div></div>
+        <div class="col-sm-6">
+		
+		   </div></div>  </div>
+      </body>  
+ </html>
+ <script>  
+ 
+
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){  
+		
+      $scope.insertData = function(){  
+	  $scope.flag=0;
+           $http.post("http://192.168.1.2/www11/staff_entry.php",  {'firstname':$scope.firstname,'staff_id':$scope.staff_id, 'middlename':$scope.middlename, 'lastname':$scope.lastname, 'shift':$scope.shift, 'branch':$scope.branch, 'useremail':$scope.useremail, 'userpassword':$scope.userpassword, 'type':$scope.type, 'flag':$scope.flag }  
+           ).success(function(data){     
+				$scope.flags=data;
+				if($scope.flags==1)
+				{
+					$scope.showmsg="This User Name is already taken.";
+				}
+				else if($scope.flags==2)
+				{
+					$scope.showmsg="Already Head is assigned to this Department";
+				}
+				else if($scope.flags==5)
+				{
+					$scope.showmsg="Already CLERK is assigned to this Department";
+				}
+				else if($scope.flags==3)
+				{
+					$scope.showmsg="Staff Enrolled..."; 
+				}
+				else
+				{
+					$scope.showmsg='Error:Not inserted';
+				}
+           });  
+      }  
+	  $scope.closen =function (){
+$(".navbar-collapse").collapse('hide');	  
+}
+
+/*$scope.end1=function(value){
+	if(value)
+	var em = $scope.useremail;
+	$scope.useremail=em+'@ssvps.com';
+	)*/
+
+      $scope.displayData = function(){  
+	  $scope.flag=1;
+           $http.post("http://192.168.1.2/www11/staff_entry.php",{'flag':$scope.flag})  
+           .success(function(data){  
+                $scope.staff_id = data;
+           });  
+      }
+	  $scope.email=localStorage.getItem('email');
+   $scope.type=localStorage.getItem('type');
+	  
+	  $scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		window.location.href = "index.html";
+		}
+		
+ });  
+ </script>

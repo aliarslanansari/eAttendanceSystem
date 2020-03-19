@@ -1,0 +1,203 @@
+<!DOCTYPE html>  
+ <!-- Studens Entry Page !-->  
+ <html>  
+      <head>  
+	  <link rel="icon" href="icon.png">
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+           <title>Subject Registration</title>  
+           <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "../index.html";
+ }
+ if(localStorage.getItem('type') == 'STAFF')
+			 {
+			 window.location.href = "#";
+			 }
+			 else if(localStorage.getItem('type') == 'HOD')
+			 {
+			 window.location.href = "../hod/staff.html";
+			 }
+</SCRIPT>
+  <style>
+  
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+   
+	}</style>
+      </head>  
+      <body ng-app="myapp"    name="stud_form" ng-controller="usercontroller"  ng-init='displayDat()'> 
+	  <!-- fixed navigation bar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li  ><a href="staff.html">Home</a></li>
+        <li ><a href="present.html">Take Attendance</a></li>
+        <li class="active"><a href="#">Student Details</a></li>
+		<li><a href="subject_details.html">Subject Details</a></li>
+		<li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports.html">Up-to-Date Report</a></li>
+          <li ><a href="report1.html">Date-Wise</a></li>
+		  <li><a href="daily_report">Daily Report</a></li>
+        </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav> <!-- /.navbar -->
+<br><br><br>
+             
+           <div class="container"  ng-click="closen()">  
+		   <form name="att" >
+		   <div class="col-sm-6"  ><div class="panel panel-info">
+                  <div class="panel-heading" >
+                      <div class="panel-title"><label>Student Details</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+					 <label>Shift</label>  
+                     <select name="year" ng-model="shift" ng-change="takee=false" class="form-control" required>
+					 <option ng-repeat="staff1 in attend1" value="{{staff1.shift}}" >{{staff1.shift}}</option>
+					 </select>
+					 <label>Year</label>  
+                     <select name="year" ng-model="year" ng-change="takee=false" class="form-control" required>
+					 <option ng-repeat="staff1 in attend" value="{{staff1.year}}" >{{staff1.year}}</option>
+					 </select>
+					 <br>
+					 <div class="btn-group">
+	<button type="submit" ng-disabled="att.$invalid" class="btn btn-primary" ng-model="proceed" ng-click="proceed=true;check(att.$dirty)"> Proceed </button></div>
+	<br>
+				  </div></div>
+				  
+		   <div class="panel panel-info" ng-show="proceed" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Details</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+				  <center>
+	<table  class="table table-striped " >
+	<col width="20">
+  <col width="300">
+  <col width="10">
+   <col width="10">
+	<tr >
+	<td ><label>R.n</label></td>
+	<td ><label>Names</label></td>
+	</tr>
+	<tr ng-repeat="staff in attend1" >
+		<td>{{ staff.roll}}</td>
+		<td>{{ staff.fname}} {{staff.mname}} {{staff.lname}}</td>
+    </tr>
+	</table><div>
+	
+	</div>
+	
+			<br>
+	</div>
+                </form>   
+                      </center>
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+           </div>  
+		   </div></div>
+      </body>  
+ </html>
+ <script>
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){
+ 
+$scope.email=localStorage.getItem('email');
+  $scope.type=localStorage.getItem('type');
+  $scope.staff_id=localStorage.getItem('staff_id');
+ 
+	  $scope.displayDat = function(){
+	  $scope.flag=2;
+		   $http.post("stud_details.php",  {'staff_id':$scope.staff_id,'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.attend = data;
+           });
+		   $scope.flag=3;
+		   $http.post("stud_details.php",  {'staff_id':$scope.staff_id,'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.attend1 = data;
+           });
+					   
+      }
+	  
+	  $scope.fetchDat = function(){
+	  $scope.flag=1;
+		   $http.post("stud_details.php",  {'staff_id':$scope.staff_id, 'year':$scope.year, 'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.attend1 = data;
+				//alert($scope.attend1);
+           });
+      }
+	  
+
+
+	  
+	  $scope.closen =function (){
+			$(".navbar-collapse").collapse('hide');	  
+		}
+		
+	  $scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		window.location.href = "../index.html";
+		}
+		
+		 $scope.check = function(value) {
+    if (value) {
+       $scope.fetchDat();
+    }
+}
+	  
+ });  
+ </script>

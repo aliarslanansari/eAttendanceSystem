@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="icon.png">
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+           <title>Attendance</title>  
+		   <!-- <link href="bootstrap.min.css" rel="stylesheet">-->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bpl.css" rel="stylesheet">  
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+ 
+   <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "../index.html";
+ }
+ if(localStorage.getItem('type') == 'CLERK')
+			 {
+			 window.location.href = "../clerk/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'HOD')
+			 {
+			 window.location.href = "../hod/staff.html";
+			 }
+</SCRIPT>
+
+	<style>
+	 body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}
+	@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+	  
+	  }
+}
+	
+	
+	.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+}
+.switch input {display:none;}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}	
+
+
+
+
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.red{
+background-color:#f9cab8;
+}
+
+.green{
+background-color:#c8f9c2;
+}
+input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+.bg-primary{
+background-color:#007bff!important;
+}
+
+</style>
+
+</head>
+	<body ng-app="myapp" ng-controller="usercontroller" ng-init="displayD()">
+	<!-- fixed navigation bar -->
+	    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="staff.html">Home</a></li>
+        <li><a href="present.html">Take Attendance</a></li>
+        <li class="active" ><a href="#">Update Attendance</a></li>
+		<li><a href="subject_details.html">Subject Details</a></li>
+		<li  class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports.html">Up-to-Date Report</a></li>
+          <li><a href="report1.html">Date-Wise</a></li>
+		  <li><a href="daily_report">Daily Report</a></li>
+        </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+ <!-- /.navbar --><br><br><br>
+	<div class="container" ng-click="closen()" >  
+		   <form name="att">
+		   <div class="col-sm-6"  ><div class="panel panel-info" ng-hide="proceed == true" >
+                  <div class="panel-heading" >
+                      <div class="panel-title"><label>Enter Attendance's details here</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+						<label>Date</label>  
+						<input type="date" ng-change="takee=false" id="datee" min="{{sem.start_date}}" name="date" max="{{sem.end_date}}" ng-model="dat"  class="form-control" required>
+						<label>Subject</label>  
+                     <select name="head" ng-change="resett();takee=false" ng-model="sub_code" class="form-control" required>
+					 <option ng-repeat="subj in sub" value="{{subj.sub_code}},{{subj.sub_sem}},{{subj.sub_branch}},{{subj.shift}}">{{subj.sub_branch}}-({{subj.shift}})-{{subj.sub_name}}({{subj.sub_code}})</option>
+					 </select>
+					  <label>Head</label>  
+                     <select name="head" ng-change="resett();takee=false" ng-model="head" class="form-control" required>
+					 <option value="TH">Theory</option>
+					 <option value="PR">Practical</option>
+					 </select>
+					  <label>Time Slot</label>  
+                     <select name="slot" ng-model="slot" ng-change="takee=false" class="form-control" required>
+					 <option value="07:30-08:30" ng-show="head == 'TH' &&  shift == 59">07:30-08:30</option>
+					 <option value="08:30-09:30" ng-show="head == 'TH' &&  shift == 59">08:30-09:30</option>
+					 <option value="10:00-11:00" ng-show="head == 'TH' &&  shift == 59">10:00-11:00</option>
+					 <option value="11:00-12:00" ng-show="head == 'TH' &&  shift == 59">11:00-12:00</option>
+					 <option value="12:10-01:10" ng-show="head == 'TH' &&  shift == 59">12:10-01:10</option>
+					 <option value="01:10-02:10" ng-show="head == 'TH' &&  shift == 59">01:10-02:10</option>
+
+					 <option value="07:30-09:30" ng-show="head == 'PR' &&  shift == 59">07:30-09:30</option>
+					 <option value="10:00-12:00" ng-show="head == 'PR' &&  shift == 59">10:00-12:00</option>
+					 <option value="12:10-02:10" ng-show="head == 'PR' &&  shift == 59">12:10-02:10</option>
+					 
+					 <option value="12:10-01:10" ng-show="head == 'TH' &&  shift == 1100">12:10-01:10</option>
+					 <option value="01:10-02:10" ng-show="head == 'TH' &&  shift == 1100">01:10-02:10</option>
+					 <option value="12:10-01:10" ng-show="head == 'TH' &&  shift == 1100">02:20-03:20</option>
+					 <option value="01:10-02:10" ng-show="head == 'TH' &&  shift == 1100">03:20-04:20</option>
+					 <option value="12:10-01:10" ng-show="head == 'TH' &&  shift == 1100">04:30-05:30</option>
+					 <option value="01:10-02:10" ng-show="head == 'TH' &&  shift == 1100">05:30-06:30</option>
+					 
+					 <option value="12:10-01:10" ng-show="head == 'PR' &&  shift == 1100" >12:10-02:10</option>
+					 <option value="12:10-01:10" ng-show="head == 'PR' &&  shift == 1100">02:20-04:20</option>
+					 <option value="12:10-01:10" ng-show="head == 'PR' &&  shift == 1100">04:30-06:30</option>
+					 </select><br>
+					 <div class="btn-group">
+	<button type="submit" ng-disabled="att.$invalid" class="btn btn-primary" ng-model="proceed" ng-click="proceed=true;check(att.$dirty)"> Proceed </button></div>
+	<br>
+				  </div></div>
+				  
+		   <div class="panel panel-info" ng-show="proceed" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Take Attendance</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+				  <center>
+					
+
+	<div ng-hide="attend=='1'" style="margin-bottom: 10px" >			
+<button  ng-click="checkAll()" ng-disabled="takee==true" class="btn btn-block btn-primary btn-sm" ng-model="selectAll" >Check all Present</button>
+
+<button  ng-click="unCheckAll()" ng-disabled="takee==true" class="btn btn-block btn-primary btn-sm" ng-model="selectAll" > Check 	all Absent</button>
+</div><label ng-show="attend=='1'"><br><br>No Students Found<br><br></label>
+	<table  class="table" ng-hide="attend=='1'">
+	<tr   style="background-color:#6298ef" >
+	<td ><label>R.n</label></td>
+	<td ><label>Names</label></td>
+	<td align="center"><label>Status</label></td>
+	</tr>
+	<tr ng-click="staff.attendance = !staff.attendance "  ng-repeat="staff in attend" ng-init="checkAll()" ng-class="{'green': staff.attendance == true,'red': staff.attendance == false}">
+		<td><label>{{ staff.roll}})</label> </td><td><label>{{ staff.fname}} {{staff.mname}} {{staff.lname}}</label></td> 
+		
+		<td align="center" >
+		<label class="switch">
+		<input type="checkbox" name="{{'attendance' + $index}}" ng-model="staff.attendance">
+<span class="slider round"></span>
+</label>		
+</td> 
+    </tr>
+	</table>
+	<center>
+	<button type="submit" ng-hide="attend=='1'" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter" ng-click="insertData()"> ADD ATTENDANCE </button>
+	<button type="submit" class="btn btn-primary btn-sm" ng-click="proceed=false;att.$setPristine()"> BACK </button>
+	</center>
+	</div>
+			<br>
+	</div>
+                </form>   
+                      </center>
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+		
+                  
+           </div>  
+		   </div></div>
+		<center>
+		<div class="container">	
+		
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <center>
+    <div class="modal-content">
+       <!--<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">eAttendance System</h5>
+      </div>--> 
+      <div class="modal-body">
+	  <label><h3>{{msg}}</h3></label>
+      </div>
+       <div class="modal-footer">
+        <a href="staff.html"><button type="button" class="btn btn-block btn-sm btn-primary">OK</button></a>
+      </div>
+    </div>
+	</center>
+  </div>
+</div>
+                
+					</div>
+		</center>
+	</body>
+</html>	
+ <script>  
+ 
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){
+ $scope.staff_id=localStorage.getItem('staff_id');
+	 /*$scope.insertData = function(){  
+           $http.post("insert.php",  {'subject':$scope.subject}  
+           ).success(function(data){  
+				alert(data);  
+           });		   
+      }*/
+	  $scope.check = function(value){
+    if (value) {
+       $scope.displayDat();
+    }
+}
+	  $scope.reset = function() {
+	  $scope.slot = '';
+	  if($scope.branch=="AE"){
+        $scope.branch = '';
+		}
+        // Todo: Reset field to pristine state, its initial state!
+    };
+	$scope.resett = function() {
+	  
+        $scope.slot = '';
+		$scope.shift=$scope.sub_code.substr(11,$scope.sub_code.length)
+    };
+	
+	  $scope.checkAll = function () {
+            angular.forEach($scope.attend, function (staff) {
+                staff.attendance = true;
+                });
+            };
+			$scope.unCheckAll = function () {
+            angular.forEach($scope.attend, function (staff) {
+                staff.attendance = false;
+                });
+            };
+	  $scope.insertData=function()
+	{       
+		var comArr = $scope.attend;
+		var attendance = new Array();
+		for( var i = 0; i < comArr.length; i++ )
+		{
+			attendance.push(comArr[i].attendance);
+		}
+		var str=attendance.join();
+		
+		
+		//alert(str);
+		$scope.flag=1;
+		$http.post("http://192.168.1.2/www11/staff/insert.php",{'flag':$scope.flag,'attendance':str,'staff_id':$scope.staff_id, 'dat':$scope.dat,'sub_code':$scope.sub_code,'head':$scope.head,'slot':$scope.slot}   
+           ).success(function(data){ 
+			if(data){
+				$scope.msg=data;
+			}else{
+			$scope.msg="NOT INSERTED";
+			}
+			$scope.takee=true;
+           });
+	}
+      $scope.displayDat = function(){
+		$scope.flag=1;
+		   $http.post("http://192.168.1.2/www11/staff/select.php",  {'flag':$scope.flag,'sub_code':$scope.sub_code,'staff_id':$scope.staff_id, 'branch':$scope.branch}  
+           ).success(function(data){  
+                $scope.attend = data;
+				//alert(data);
+           });
+			$scope.proceed=true; 		   
+      }
+	  $scope.displayD = function(){
+		$scope.flag=2;
+		   $http.post("select.php",  {'flag':$scope.flag,'staff_id':$scope.staff_id}  
+           ).success(function(data){  
+                $scope.sub = data;
+				//alert(data);
+           });
+		   
+		   $scope.flag=2;
+		   $http.post("http://192.168.1.2/www11/staff/fetchsem.php",  {'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.sem = data;
+				//alert($scope.sem);
+           });
+			//$scope.proceed=true; 		   
+      }
+	  
+	  $scope.closen =function (){
+$(".navbar-collapse").collapse('hide');	  
+}
+
+$scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		localStorage.removeItem('type');
+		localStorage.removeItem('staff_id');
+		window.location.href = "../index.html";
+		}
+		
+		$scope.email=localStorage.getItem('email');
+   $scope.type=localStorage.getItem('type');
+		
+ });
+ </script>

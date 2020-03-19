@@ -1,0 +1,268 @@
+<!DOCTYPE html>  
+ <!-- Studens Entry Page !-->  
+ <html>  
+      <head>  
+	  <link rel="icon" href="icon.png">
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+           <title>Subject Registration</title>  
+           <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bpl.css" rel="stylesheet">  
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "../index.html";
+ }
+ if(localStorage.getItem('type') == 'STAFF')
+			 {
+			 window.location.href = "../staff/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'HOD')
+			 {
+			 window.location.href = "#";
+			 }
+</SCRIPT>
+  <style>
+  
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+.scrollme{
+	overflow-y:auto;
+}
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+   body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}</style>
+      </head>  
+      <body ng-app="myapp"    name="stud_form" ng-controller="usercontroller"  ng-init='displayDat()'> 
+	  <!-- fixed navigation bar -->
+    <nav class="navbar navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="staff.html">Home</a></li>
+        <li class="dropdown"  >
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="registration.html">Student Registration</a></li>
+		  <li ><a href="stud_update.html">Student Updation</a></li>
+		  <li><a href="promote.html">Student Promotion</a></li>
+		  <li ><a href="stud_details.html">Student Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="staff_entry.html">Staff Registration</a></li>
+		  <li><a href="Staff_update.html">Staff Updation</a></li>
+		  <li><a href="staff_details.html">Staff Details</a></li>
+        </ul>
+      </li>
+	  <li class="active" class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="subject_entry.html">Subject Registration</a></li>
+		<li><a href="subject_update.html">Subject Updation</a></li>
+		  <li><a href="subject_assign.html">Subject Assignment</a></li>
+		  <li class="active"><a href="#">Subject Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Semester
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="sem_entry.html">Semester Registration</a></li>
+		<li><a href="sem_update.html">Semester Updation</a></li>
+		  <li><a href="sem_details.html">Semester Details</a></li>
+        </ul>
+      </li>
+		
+		
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav> <!-- /.navbar -->
+<br><br><br>
+             
+           <div class="container"  ng-click="closen()">  
+		   <form name="att" >
+		   <div class="col-sm-6"  ><div class="panel panel-info">
+                  <div class="panel-heading" >
+                      <div class="panel-title"><label>Subject List</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+					 
+					 <label>Shift</label>  
+                     <select name="last_name" ng-model="shift" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select>  
+					 <label>Branch</label>  
+                     <select name="branch" ng-model="branch" class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 
+					 </select>
+					 <label>Year: </label>  
+                     <select name="head" ng-change="resett();takee=false" ng-model="year" class="form-control" required>
+					 
+						<option value="FYDC">First Year</option>
+						<option value="SYDC">Second Year</option>
+						<option value="TYDC">Third Year</option>
+					
+					 </select>
+					 <br>
+					 <div class="btn-group">
+	<button type="submit" ng-disabled="att.$invalid" class="btn btn-primary" ng-model="proceed" ng-click="proceed=true;check(att.$dirty)"> Proceed </button></div>
+	<br>
+				  </div></div>
+				  
+		   <div class="panel panel-info" ng-show="proceed" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Details</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+				  <center>
+				  <div class="scrollme">
+	<table  class="table table-striped " >
+	
+	<tr >
+					  <td align="center"><label>Sem</label></td>
+					  <td align="center"><label>Code</label></td>
+					  <td ><label>Name</label></td>
+					  <td ><label>Branch</label></td>
+					  <td align="center"><label>Abbr</label></td>
+					<td align="center"><label>Staff ID</label></td>
+					  
+					  
+					  
+					  </tr>
+					  <tr ng-repeat="staffs in attend1" ng-init="checkAll()" >
+					  <td align="center">{{ staffs.sub_sem}}</td>
+					  <td align="center">{{ staffs.sub_code}}</td>
+					  <td>{{ staffs.sub_name}}</td>  
+					  <td>{{ staffs.sub_branch}}({{ staffs.shift}})</td>  
+					  <td align="center">{{ staffs.sub_abbr}}</td>
+					<td align="center">{{ staffs.staff_id}}</td>
+
+					  
+							</tr>
+	</table></div><div>
+	
+	</div>
+	
+			
+	</div>
+                </form>   
+                      </center>
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+           </div>  
+		   </div></div>
+      </body>  
+ </html>
+ <script>
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){
+ 
+$scope.email=localStorage.getItem('email');
+  $scope.type=localStorage.getItem('type');
+  $scope.staff_id=localStorage.getItem('staff_id');
+	  
+	  $scope.fetchDat = function(){
+	  $scope.flag=1;
+		   $http.post("http://192.168.1.2/www11/subject_details.php",  {'staff_id':$scope.staff_id,'shift':$scope.shift,'branch':$scope.branch, 'year':$scope.year, 'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.attend1 = data;
+				//alert($scope.attend1);
+           });
+      }
+	  
+
+
+	  
+	  $scope.closen =function (){
+			$(".navbar-collapse").collapse('hide');	  
+		}
+		
+	  $scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		localStorage.removeItem('type');
+		localStorage.removeItem('staff_id');
+		window.location.href = "index.html";
+		}
+		
+		 $scope.check = function(value) {
+    if (value) {
+       $scope.fetchDat();
+    }
+}
+	  
+ });  
+ </script>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="icon.png">
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+	
+           <title>Reports</title>  
+		   <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <link href="../bpl.css" rel="stylesheet"> 
+     <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "../index.html";
+ }
+ if(localStorage.getItem('type') == 'CLERK')
+			 {
+			 window.location.href = "../clerk/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'HOD')
+			 {
+			 window.location.href = "../hod/staff.html";
+			 }
+</SCRIPT>
+    
+
+	<style>
+	.scrollme{
+	overflow-y:auto;
+}
+	body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}
+	@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+    }
+}
+/*--------------------------*/
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-body {
+    max-height:40%; 
+    overflow-y: auto;
+}
+.modal {
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+
+/*-------------------------------------------------------------------------------*/
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.red{
+background-color:#f9cab8;
+}
+
+.green{
+background-color:#c8f9c2;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+</style>
+</head>
+	<body ng-app="myapp" ng-controller="usercontroller" ng-init="displayD()" >
+	<!-- fixed navigation bar -->
+	    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="staff.html">Home</a></li>
+        <li ><a href="present.html">Take Attendance</a></li>
+		<li ><a href="present_update.html">Update Attendance</a></li>
+		<li><a href="subject_details.html">Subject Details</a></li>
+		<li class="active" class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+			<li><a href="reports.html">Up-to-Date Report</a></li>
+          <li class="active"><a href="#">Date-Wise</a></li>
+		  <li><a href="daily_report.html">Daily Report</a></li>
+        </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ <!-- /.navbar --><br><br><br>
+	<div class="container" ng-click="closen()">  
+		   <form name="att">
+		   <div class="col-sm-6"  ><div class="panel panel-info" ng-hide="proceed == true" >
+                  <div class="panel-heading" >
+                      <div class="panel-title"><label>Enter Attendance's details here</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+						<label>Start Date</label>  
+						<input type="date" ng-change="takee=false" min="{{sem.start_date}}" name="date" max="{{sem.end_date}}" ng-model="startdat"  class="form-control" required>
+						<label>End Date</label>  
+						<input type="date" ng-change="takee=false" min="{{sem.start_date}}" name="date" max="{{sem.end_date}}" ng-model="enddat"  class="form-control" required>
+						<label>Subject</label>  
+                     <select name="head" ng-change="resett();takee=false" ng-model="sub_code" class="form-control" required>
+					 <option ng-repeat="subj in sub" value="{{subj.sub_code}},{{subj.sub_sem}},{{subj.sub_branch}},{{subj.shift}}">{{subj.sub_branch}}-({{subj.shift}})-{{subj.sub_name}}({{subj.sub_code}})</option>
+					 </select>
+					  <br>
+					 <div class="btn-group">
+	<button type="submit" ng-disabled="att.$invalid" class="btn btn-primary" ng-model="proceed" ng-click="proceed=true;check(att.$dirty)"> Proceed </button></div>
+	<br>
+				  </div></div>
+				  
+		   <div class="panel panel-info" ng-show="proceed" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Report</label></div>
+                  </div>
+                  <div style="padding-top:10px;" class="panel-body" >
+				  <label>Branch: {{branch}}, </label>
+				  <label>Shift: {{shift}}, </label>
+				  <label>Year: {{year}}, </label>
+				  <label>Subject Code: {{sub_code}} </label>
+				  <br>
+				  From Date: {{startdate}} To Date: {{enddate}}
+				  <center>
+	<Label ng-show="attend=='1'"><br><br>No Attendance Found <br><br></Label> <Label ng-show="attend=='2'">No Students Found</Label>
+	<div class="scrollme">
+	<table  class="table table-striped " ng-hide="attend=='1' || attend=='2'" >
+	<col width="20">
+  <col width="300">
+  <col width="10">
+   <col width="10">
+	<tr >
+	<td><label>R.n</label></td>
+	<td><label>Names</label></td>
+	<td align="center"><label>Theory<br>Attendance</label></td>
+	<td align="center"><label>Practical<br>Attendance</label></td>
+	<td align="center"><label>%</label></td>
+	</tr>
+	<tr ng-repeat="staff in attend" ng-init="checkAll()" >
+		<td>{{ staff.roll}}</td>
+		<td>{{ staff.fname}} {{staff.mname}} {{staff.lname}}</td>  
+		<td align="center">{{ staff.attendance}}/{{ staff.total}}</td>
+		<td align="center">{{ staff.attendancep}}/{{ staff.totalp}}</td>
+		<td align="center">{{ staff.per}}%</td>
+    </tr>
+	</table></div><div>
+	<button type="submit" class="btn btn-primary btn-sm" ng-click="proceed=false;att.$setPristine()"> BACK </button>
+	</div>
+	
+			<br>
+	</div>
+                </form>   
+                      </center>
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+		
+                  
+           </div>  
+		   </div></div>
+		<center>
+		<div class="container">	
+					</div>
+		</center>
+	</body>
+</html>	
+ <script>  
+ 
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){
+ 
+ $scope.email=localStorage.getItem('email');
+  $scope.type=localStorage.getItem('type');
+  $scope.staff_id=localStorage.getItem('staff_id');
+ 
+	 /*$scope.insertData = function(){  
+           $http.post("insert.php",  {'subject':$scope.subject}  
+           ).success(function(data){  
+				alert(data);  
+           });		   
+      }*/
+	  $scope.check = function(value) {
+    if (value) {
+       $scope.displayDat();
+    }
+}
+
+	  $scope.reset = function() {
+	  $scope.slot = '';
+	  if($scope.branch=="AE"){
+        $scope.branch = '';
+		}
+        // Todo: Reset field to pristine state, its initial state!
+    };
+	$scope.resett = function() {
+	  
+        $scope.slot = '';
+    };
+	$scope.displayD = function(){
+		$scope.flag=2;
+		   $http.post("http://192.168.1.2/www11/staff/select.php",  {'flag':$scope.flag,'staff_id':$scope.staff_id}  
+           ).success(function(data){  
+                $scope.sub = data;
+				//alert(data);
+           });
+		   $scope.flag=1;
+		   $http.post("http://192.168.1.2/www11/staff/fetchsem.php",  {'flag':$scope.flag}  
+           ).success(function(data){  
+                $scope.sem = data;
+				//alert($scope.sem);
+           });
+			//$scope.proceed=true; 		   
+      }
+      $scope.displayDat = function(){
+		   $http.post("http://192.168.1.2/www11/staff/report1.php",  {'sub_code':$scope.sub_code,'startdate':$scope.startdat,'enddate':$scope.enddat}  
+           ).success(function(data){  
+                $scope.attend = data;
+				$scope.startdate=$scope.attend[0].startdate;
+				$scope.enddate=$scope.attend[0].enddate
+				var temp= $scope.sub_code;
+				$scope.sub_code=temp.substr(0,5);
+		$scope.sub_sem=temp.substr(6,1);
+		$scope.branch=temp.substr(8,2);
+		$scope.shift=temp.substr(11,temp.length);
+		if($scope.sub_sem==1 || $scope.sub_sem==2)
+		 {
+			 $scope.year="FYDC";
+		 }
+		 else if($scope.sub_sem==3 || $scope.sub_sem==4)
+		 {
+			 $scope.year="SYDC";
+		 }
+		 else if($scope.sub_sem==5 || $scope.sub_sem==6)
+		 {
+			 $scope.year="TYDC";
+		 }
+		
+           });
+			$scope.proceed=true; 		   
+      }
+	  
+	  $scope.closen =function (){
+$(".navbar-collapse").collapse('hide');	  
+}
+
+$scope.logout = function(){
+		//localStorage.removeItem("key");
+	localStorage.removeItem('email');
+		localStorage.removeItem('type');
+		localStorage.removeItem('staff_id');
+		window.location.href = "../index.html";
+		}
+		
+ });
+ </script>

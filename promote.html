@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="icon.png">
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+           <title>Reports</title>  
+		   <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bpl.css" rel="stylesheet"> 
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+ <SCRIPT type="text/javascript">
+/*if(!localStorage.getItem('email'))
+ {
+ window.location.href = "index.html";
+ }*/
+</SCRIPT>
+    
+
+	<style>
+	body {
+  /* Location of the image */
+  background-image: url(bluebg.jpg);
+  
+  /* Background image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Background image doesn't tile */
+  background-repeat: no-repeat;
+  
+  /* Background image is fixed in the viewport so that it doesn't move when 
+     the content's height is greater than the image's height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based
+     on the container's size */
+  background-size: cover;
+  
+  /* Set a background color that will be displayed
+     while the background image is loading */
+  background-color: #464646;
+}
+	
+	@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+    }
+}
+/*--------------------------*/
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-body {
+    max-height:40%; 
+    overflow-y: auto;
+}
+.modal {
+}
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+}
+
+/*-------------------------------------------------------------------------------*/
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.red{
+background-color:#f9cab8;
+}
+
+.green{
+background-color:#c8f9c2;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+</style>
+</head>
+	<body ng-app="myapp" ng-controller="usercontroller"  >
+	<!-- fixed navigation bar -->
+	  <nav class="navbar navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li  ><a href="staff.html">Home</a></li>
+        <li class="active" class="dropdown"  >
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="registration.html">Student Registration</a></li>
+		  <li ><a href="stud_update.html">Student Updation</a></li>
+		  <li class="active"><a href="#">Student Promotion</a></li>
+		  <li ><a href="stud_details.html">Student Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="staff_entry.html">Staff Registration</a></li>
+		  <li><a href="Staff_update.html">Staff Updation</a></li>
+		  <li><a href="staff_details.html">Staff Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="subject_entry.html">Subject Registration</a></li>
+		<li><a href="subject_update.html">Subject Updation</a></li>
+		  <li><a href="subject_assign.html">Subject Assignment</a></li>
+		  <li><a href="subject_details.html">Subject Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Semester
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="sem_entry.html">Semester Registration</a></li>
+		<li><a href="sem_update.html">Semester Updation</a></li>
+		  <li><a href="sem_details.html">Semester Details</a></li>
+        </ul>
+      </li>
+		
+		
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+ <!-- /.navbar --><br><br><br>
+	<div class="container" ng-click="closen()">  
+		  
+		   <div class="col-sm-6"  ><div class="panel panel-info" ng-hide="proceed == true" >
+                  <div class="panel-heading" >
+                      <div class="panel-title"><label>Select Class To Promote</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+				   <form name="att">
+				   <label>Shift</label>  
+                     <select name="last_name" ng-change="reset();takee=false" ng-model="shift" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select> 
+					 <label>Year</label>  
+                     <select name="last_name" ng-model="year" ng-change="takee=false" class="form-control" required>
+					 <option value="FYDC">FYDC</option>
+					 <option value="SYDC">SYDC</option>                                                                                                                                    
+					 <option value="TYDC">TYDC</option>
+					 </select>
+					 <label>Branch</label>  
+                     <select name="branch" ng-model="branch" ng-change="takee=false" class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE" ng-show="shift == 59">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 </select>
+					  <br>
+					 <div class="btn-group">
+	<button type="submit" ng-disabled="att.$invalid" class="btn btn-primary" ng-model="proceed" ng-click="proceed=true;check(att.$dirty)"> Proceed </button></div>
+	<br>
+				  </form>  </div></div>
+				                   
+		   <div class="panel panel-info" ng-show="proceed" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Report</label></div>
+                  </div>
+                  <div style="padding-top:10px;" class="panel-body" >
+				  <form name="promo">
+				  <label>Branch: {{branch}}, </label>
+				  <label>Shift: {{shift}}, </label>
+				  <label>Year: {{year}}</label>
+
+				  <br>
+				  <center>
+					<label ng-show="attend=='1'"><br><br>No Record Found<br><br></label>
+					<div class="form-inline"><label>Promote to Year:</label>  
+                     <select name="last_name" ng-model="pyear" ng-change="takee=false" class="form-control" required>
+					 <option value="FYDC">FYDC</option>
+					 <option value="SYDC">SYDC</option>                                                                                                                                    
+					 <option value="TYDC">TYDC</option>
+					 <option value="PASS">Passed</option>
+					 </select>
+					 <label>Status As:</label>  
+                     <select name="status" ng-model="status" ng-change="takee=false" class="form-control" required>
+					 <option value="reg" ng-hide="pyear=='PASS'">Regular</option>
+					 <option value="YD" ng-hide="pyear=='PASS'">Year Down</option>                                                                                                                                    
+					 <option value="passed" ng-show="pyear=='PASS'">Passed</option>
+					 </select></div>
+					 <br>
+	<table  class="table table-striped " ng-hide="attend=='1'" >
+	
+	<tr >
+	<td ><label>R.n</label></td>
+	<td ><label>Names</label></td>
+	<td><label>Current Status</label><td>
+	<td align="center"><label>Promote Status</label></td>
+	</tr>
+	<tr ng-repeat="staff in attend"  ng-init="checkAll()">
+		<td>{{ staff.roll}}</td>
+		<td>{{ staff.fname}} {{staff.mname}} {{staff.lname}}</td>
+		<td><label ng-show="staff.status=='YD'" >Year Down</label><label ng-show="staff.status=='reg'" >Regular</label><td>
+		<td align="center" ><input type="checkbox" name="{{'attendance' + $index}}"  ng-model="staff.attendance"></td>
+    </tr>
+	</table><div>
+	<button type="submit" class="btn btn-primary btn-sm" ng-disabled="promo.$invalid" data-toggle="modal" ng-hide="attend=='1'" data-target="#myModal" > Promote </button>
+	<button type="submit" class="btn btn-primary btn-sm" ng-click="proceed=false;att.$setPristine()"> BACK </button>
+	</div>
+	</form>
+	<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+<div class="modal-content"><form>
+      <div class="modal-body">
+        
+		<label ng-hide="msg"> Are you sure, you want to promote students to higher class?</label>		  
+		<label><h3>{{msg}}</h3></label>					  
+      </div>
+      <div class="modal-footer">
+	  <a href="staff.html"><button type="button" ng-show="msg" class="btn btn-block btn-sm btn-primary">OK</button></a>
+        <button type="submit" class="btn btn-primary" ng-click="insertData()" ng-hide="msg" ><i class="glyphicon glyphicon-log-in"></i> Promote </button><button ng-hide="msg" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> </form>
+    </div>
+
+</div>
+</div>
+
+	
+			<br>
+	</div>
+
+                      </center>
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+		
+                  
+           </div>  
+		   </div></div>
+		<center>
+		<div class="container">	
+					</div>
+		</center>
+	</body>
+</html>	
+ <script>  
+ 
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){
+	  $scope.check = function(value) {
+    if (value) {
+       $scope.displayDat();
+    }
+}
+	  $scope.reset = function() {
+	  $scope.slot = '';
+	  if($scope.branch=="AE"){
+        $scope.branch = '';
+		}
+        // Todo: Reset field to pristine state, its initial state!
+    };
+	$scope.resett = function() {
+	  
+        $scope.slot = '';
+    };
+      $scope.displayDat = function(){
+	  $scope.flag=1;
+		   $http.post("http://192.168.1.2/www11/promote.php",{'flag':$scope.flag, 'year':$scope.year, 'branch':$scope.branch, 'shift':$scope.shift}
+           ).success(function(data){  
+                $scope.attend = data;
+           });
+			$scope.proceed=true; 		   
+      }
+	  
+	  $scope.checkAll = function () {
+	  angular.forEach($scope.attend, function (staff) {
+                staff.attendance = true;
+				
+                });
+            angular.forEach($scope.attend, function (staff) {
+				if(staff.status=='YD')
+				{
+                staff.attendance = false;
+				}
+                });
+            };
+			$scope.unCheckAll = function () {
+            angular.forEach($scope.attend, function (staff) {
+                staff.attendance = false;
+                });
+            };
+	  
+	  
+	   $scope.insertData=function()
+	{
+		$scope.flag=2;
+		var comArr = $scope.attend;
+		var attendance = new Array();
+		for( var i = 0; i < comArr.length; i++ )
+		{
+			attendance.push(comArr[i].attendance);
+		}
+		var str=attendance.join();
+		
+		
+		//alert(str);
+		
+		$http.post("http://192.168.1.2/www11/promote.php",{'flag':$scope.flag, 'status':$scope.status, 'attendance':str,'pyear':$scope.pyear, 'year':$scope.year, 'branch':$scope.branch, 'shift':$scope.shift}   
+           ).success(function(data){ 
+			if(data){
+				$scope.msg=data;
+			}else{
+			$scope.msg="NOT Promoted";
+			}
+			$scope.takee=true;
+           });
+	}
+	$scope.email=localStorage.getItem('email');
+   $scope.type=localStorage.getItem('type');
+	  
+	  $scope.closen =function (){
+$(".navbar-collapse").collapse('hide');	  
+}
+
+$scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.removeItem('email');
+		window.location.href = "index.html";
+		}
+ });
+ </script>

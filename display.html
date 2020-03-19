@@ -1,0 +1,38 @@
+<!DOCTYPE html>  
+ <!-- index.php !-->  
+ <html>  
+      <head>  
+           <title>Webslesson Tutorial | AngularJS Tutorial with PHP - Fetch / Select Data from Mysql Database</title>  
+           <link rel="stylesheet" href="bootstrap.min.css" />  
+           <script src="angular.min.js"></script>  
+      </head>  
+      <body>  
+           <br /><br />  
+           <div class="container" ">  
+                <h3 align="center">My Friends List</h3>  
+                <div ng-app="myapp" ng-controller="usercontroller" ng-init="displayData()">   
+                     <table class="table table-bordered">  
+                          <tr>  
+                               <th>First Name</th>  
+                               <th>Last Name</th>  
+                          </tr>  
+                          <tr ng-repeat="x in names"> 
+                               <td>{{x.first_name}}</td>  
+                               <td>{{x.last_name}}</td>  
+                          </tr>  
+                     </table>  
+                </div>  
+           </div>  
+      </body>  
+ </html>  
+ <script>  
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){   
+      $scope.displayData = function(){  
+           $http.get("select.php")  
+           .success(function(data){  
+                $scope.names = data;  
+           });  
+      }  
+ });  
+ </script>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Attendance System</title>
+<link rel="icon" href="icon.png">
+    <!-- css stylesheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+	<style>
+	
+	body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.jumbotron-billboard .img {
+    margin-bottom: 0px;
+    opacity: 0.7;
+    color: #fff;
+    background: #000 url("learning-story.png") top center no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+}
+.jumbotron h2 {margin-top:0;}
+.jumbotron {
+  position:relative;
+  padding-top:50px;
+  padding-bottom:50px;
+}
+.jumbotron .container {
+  position:relative;
+  z-index:2;
+}
+
+@media screen and (max-width: 768px) {
+  .jumbotron {
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+}
+p {
+    font-size: 4.5vmin;
+}
+h2 {
+    font-size: 6.5vmin;
+}
+img {
+display: inline-block;
+height: auto;
+max-width: 150%;
+} 
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+.padding-1{
+    padding-right:0;
+   padding-left:20%;
+}
+
+
+
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+</style>
+
+	
+</HEAD>
+<BODY onload="noBack();"
+    onpageshow="if (event.persisted) noBack();" ng-app="AngularJSLogin" ng-controller="AngularLoginController as angCtrl">
+
+    
+
+    <!-- fixed navigation bar -->
+     <!-- /.navbar -->
+    <!-- main container -->
+	<div class="jumbotron jumbotron-billboard">
+  <div class="img"></div>
+    <div class="container padding-0">
+        
+		<div class="col-xs-4 padding-0">
+                <img src="icon.png" />
+            </div>
+            <div class="col-xs-8 padding-1">
+	
+              <h2>Welcome to eAttendance System</h2>
+                <p>
+                    SSVPS's Bapusaheb Shivajirao Deore Polytechnic
+                </p>
+                
+            </div>
+        
+    </div>
+</div>
+    <div class="container">
+	
+      <!-- 2-column layout -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-9">
+
+          <!-- jumbotron 
+          <div class="jumbotron">
+            <h1>aa</h1>
+            <p> </p>
+            <p><a role="button" href="#" class="btn btn-lg btn-success">Sign up today</a></p>
+          </div> -->
+
+          <div class="row">
+
+            <!-- column 1 -->
+            <div class="col-sm-6">
+
+              <!-- box 1 -->
+			  <div ng-app="AngularJSLogin" ng-controller="AngularLoginController as angCtrl" >
+				
+                      <div class="panel panel-info" ng-init="check()" >
+                  
+
+                  <div style="padding-top:30px" class="panel-body" >
+					<form><div style="margin-bottom: 25px" class="input-group">Administrator of the system, Head of Department, and Teaching staff, to login click here.</div>
+                          <div class="form-group">
+                              <div class="col-sm-12 controls">
+                                  <button type="submit" class="btn btn-primary pull-left" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-log-in"></i> Log in</button>
+                              </div>
+                          </div>
+<br><br>
+							  
+							  
+			
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content"><form>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter User Name And Password</h4>
+      </div>
+      <div class="modal-body"> <form>
+        <div style="margin-bottom: 25px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input type="text" placeholder="User Name" class="form-control" required autofocus ng-model="useremail">
+                          </div>
+        <div style="margin-bottom: 25px"  class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		<input type="password" placeholder="Password" class="form-control" required ng-model="userpassword">
+                  </div>
+				  
+				  <div ng-show="indexMsg" class="alert alert-danger" >
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                      </button>
+                                  <span class="glyphicon glyphicon-hand-right"></span> {{indexMsg}}
+                              </div>
+							  
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-click="loginForm()" ><i class="glyphicon glyphicon-log-in"></i> Log in</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> </form> </form>
+    </div>
+
+  </div>
+</div>
+                       </form>   
+                      </div>
+                  </div>
+        <!-- box 2 -->
+</div>
+            </div> <!-- /column 1 -->
+
+            <!-- column 2 -->
+            <div class="col-sm-6">
+
+              <!-- box 3 -->
+              <div class="panel panel-success">
+                <div class="panel-body">
+				<div style="margin-bottom: 25px" class="input-group">Students,to check your attendance click here.</div>
+				
+            
+					<div class="col-sm-12 controls">
+                                  <button type="submit" data-toggle="modal" data-target="#myModal1" class="btn btn-primary pull-left" ng-click="" >Check Attendance</button>
+                              </div>
+                </div>
+              </div>
+			  
+			  <div id="myModal1" data-backdrop="static" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content"  >
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="clearM()" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><re ng-hide="sub">Enter Your Enrollment number here, to check your attendance.</re><re ng-show="sub" >Attendance Details</re></h4>
+      </div>
+      <div class="modal-body">
+        <form>
+				<div ng-hide="sub">
+					<input type="number" placeholder="Enrollment Number" ng-model="enrl_no" class="form-control" autofocus required>
+				 </div><div ng-show="sub" >
+				 <div ng-show="sub=='2'">No Student Found</div>
+				 <div ng-show="sub!='2'"> 
+					Name: {{sub[0].fname}} {{sub[0].mname}} {{sub[0].lname}}<br>
+					Shift:<re ng-show="sub[0].shift=='59'">First Shift</re><re ng-show="sub[0].shift=='1100'">Second Shift</re> | Year:{{sub[0].year}} | Branch:{{sub[0].branch}}
+					<hr size="20">
+					Attendance From: {{sub[0].start}} | To: {{sub[0].end}}
+					<hr size="20">
+					Total Theory Attendance: {{sub[0].attendance}} Out of:{{sub[0].total}}<br>
+					Total Practical Attendance: {{sub[0].attendancep}} Out of:{{sub[0].totalp}}
+					<hr size="20">
+					Attendance Percentage: {{sub[0].per}}%
+				 </div></div>
+							
+					</form>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+                              
+   <button type="submit" ng-hide="sub" ng-click="displayD()" class="btn btn-primary pull-left" ><i class="glyphicon glyphicon-log-in"></i> Submit</button>
+   <button type="button" class="btn btn-default" ng-click="clearM()" data-dismiss="modal" >Close</button>
+                              
+                          </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+              
+            </div> <!-- /column 2 -->
+          </div><!--/row-->
+        </div><!--/span-->
+
+
+
+      </div><!--/row-->
+		</div>
+      <footer>
+        <nav class="navbar navbar-default navbar-static-bottom" role="navigation">
+        <div class="navbar-text">SSVPS's B S Deore Polytechnic Dhule.</div>
+        </nav>
+      </footer>
+
+    </div><!--/.container-->
+      
+    <!-- add javascripts -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="angular.min.js"></script>
+</body>
+</html>
+<script>
+	var app = angular.module("AngularJSLogin",[]);  
+ app.controller("AngularLoginController", function($scope, $http) {
+ $scope.check = function (){
+				if(localStorage.getItem('email') != null){
+			 if(localStorage.getItem('type') == 'STAFF')
+			 {
+			 window.location.href = "staff/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'HOD')
+			 {
+			 window.location.href = "hod/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'CLERK')
+			 {
+			 window.location.href = "clerk/staff.html";
+			 }
+			 else if(localStorage.getItem('type') == 'ADMIN')
+			 {
+			 window.location.href = "staff.html";
+			 }
+		 }}
+		 
+		  $scope.clearM = function (){
+			window.location.href = "index.html";
+			 
+      }
+		
+		 $scope.displayD = function (){
+		 //alert('hello');
+		   $http.post("enrl_report.php",  {'enrl_no':$scope.enrl_no}  
+           ).success(function(data){  
+                $scope.sub = data;
+				//alert(data);
+           })
+      }
+		 
+		$scope.loginForm = function() { 
+           $http.post("login.php",  {'user_email':$scope.useremail, 'user_password':$scope.userpassword}  
+           ).success(function(data){
+		   $scope.flags=data;
+		   //alert($scope.flags);
+				if($scope.flags.flag==1)
+				{
+					localStorage.setItem('email',$scope.useremail);
+				localStorage.setItem('type',"STAFF");
+				localStorage.setItem('staff_id',$scope.flags.staff_id);
+					window.location.replace('staff/staff.html');
+				
+				}
+				else if($scope.flags.flag==2)
+				{
+					localStorage.setItem('email',$scope.useremail);
+				localStorage.setItem('type',"HOD");
+				localStorage.setItem('staff_id',$scope.flags.staff_id);
+					window.location.replace('hod/staff.html');
+				}
+				else if($scope.flags.flag==3)
+				{
+					localStorage.setItem('email',$scope.useremail);
+				localStorage.setItem('type',"ADMIN");
+				localStorage.setItem('staff_id',$scope.flags.staff_id);
+					window.location.replace('staff.html');
+				}
+				else if($scope.flags.flag==4)
+				{
+					localStorage.setItem('email',$scope.useremail);
+				localStorage.setItem('type',"CLERK");
+				localStorage.setItem('staff_id',$scope.flags.staff_id);
+					window.location.replace('clerk/staff.html');
+				}
+				else
+				{
+					$scope.userpassword = null;
+					$scope.indexMsg = "Invalid Email and Password";
+					
+				}
+			});  
+      }
+	});
+	</script>

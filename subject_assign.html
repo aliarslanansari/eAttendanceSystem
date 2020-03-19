@@ -1,0 +1,280 @@
+<!DOCTYPE html>  
+ <!-- Studens Entry Page !-->  
+ <html>  
+      <head>  
+	  <link rel="icon" href="icon.png">
+	  <meta name="viewport" content="width=device-width, initial-scale=-1">
+           <title>Subject Registration</title>  
+           <link href="bootstrap.min.css" rel="stylesheet">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+           <script src="angular.min.js"></script>
+		   
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+if(!localStorage.getItem('email'))
+ {
+ window.location.href = "index.html";
+ }
+</SCRIPT>
+  <style>
+  
+  input:focus:invalid { 
+    border: 1x solid #dd272d;
+}
+
+.alert {
+	position:absolute;
+    z-index:1;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }}
+input.ng-dirty.ng-invalid { 
+    border: 2px solid #dd272d;
+}
+   
+   body {
+    background-image: url("bluebg.jpg");
+	 background-repeat: no-repeat;
+	  -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+</style>
+	<link href="bpl.css" rel="stylesheet">  
+      </head>  
+      <body ng-app="myapp" ng-controller="usercontroller">
+	  <!-- fixed navigation bar -->
+    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Attendance System</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href="staff.html">Home</a></li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="registration.html">Student Registration</a></li>
+		  <li ><a href="stud_update.html">Student Updation</a></li>
+		  <li><a href="promote.html">Student Promotion</a></li>
+		  <li ><a href="promote.html">Student Details</a></li>
+        </ul>
+      </li>
+	  <li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Staff
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="staff_entry.html">Staff Registration</a></li>
+		  <li><a href="Staff_update.html">Staff Updation</a></li>
+		  <li><a href="staff_entry.html">Staff Details</a></li>
+        </ul>
+      </li>
+	  <li class="active" class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Subject
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="subject_entry.html">Subject Registration</a></li>
+		<li><a href="subject_update.html">Subject Updation</a></li>
+		  <li class="active"><a href="#">Subject Assignment</a></li>
+		  <li><a href="subject_details.html">Subject Details</a></li>
+        </ul>
+      </li>
+		<li class="dropdown">
+	  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Semester
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="sem_entry.html">Semester Registration</a></li>
+		<li><a href="sem_update.html">Semester Updation</a></li>
+		  <li><a href="sem_details.html">Semester Details</a></li>
+        </ul>
+      </li>
+		
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" style="color:red" href="#">{{type}}: {{email}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a ng-click="logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav> <!-- /.navbar -->
+<br><br><br>
+             
+           <div class="container">  
+		   <div class="col-sm-6">
+		   <div class="panel panel-info" >
+                  <div class="panel-heading">
+                      <div class="panel-title"><label>Subject Assignment</label></div>
+
+                  </div>
+
+                  <div style="padding-top:10px;background:#f7f7f9;" class="panel-body" >
+				  <Label>Subject Details:</label>
+					<form ng-app="myapp"   ng-submit="insertData()" name="stud_form" ng-controller="usercontroller">  
+					<label>Shift</label>  
+                     <select name="last_name" ng-model="shift" ng-change="FetchSub()" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select>
+					<label>Branch</label>  
+                     <select name="branch" ng-change="FetchSub()" ng-model="branch"  class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE" ng-show="shift == 59">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 </select>
+					 <label>Semester</label>  
+                     <select ng-model="sub_sem" ng-change="FetchSub()" class="form-control" required>
+						<option value="1">First</option>
+						<option value="2">Second</option>
+						<option value="3">Third</option>
+						<option value="4">Fourth</option>
+						<option value="5">Fifth</option>
+						<option value="6">Sixth</option>
+						</select>
+					<div class="row">
+					<div class="form-group col-sm-12">
+					<label>Scheme</label>  
+                     <select name="scheme"  ng-model="sub_scheme"  ng-change="FetchSub()" class="form-control" required>
+					 <option value="E">E-Scheme</option>
+					 <option value="G">G-Scheme</option>
+					 <option value="I">I-Scheme</option>
+					 </select>
+					<label>Subject</label>  
+                     <select name="last_name" ng-model="sub_code" class="form-control" required>
+					 <option ng-repeat="sub in subj" value="{{sub.sub_code}}" >{{sub.sub_code}}-{{sub.sub_name}}</option>
+					 </select><br>
+					 <Label>Staff Details:</label><br>
+					   <label>Shift</label>  
+                     <select name="last_name" ng-model="shift1" ng-change="FetchStaff()" class="form-control" required>
+					 <option value="0059">First Shift(0059)</option>
+					 <option value="1100">Second Shift(1100)</option>
+					 </select><div ng-show="shift1" > 
+					<label>Branch</label>  
+                     <select name="branch1" ng-change="FetchStaff()" ng-model="branch1"  class="form-control" required>
+					 <option value="CO">COMPUTER</option>
+					 <option value="IE">INDUSTRIAL ELECTRONICS</option>
+					 <option value="ME">MECHANICAL</option>
+					 <option value="CE">CIVIL</option>
+					 <option value="AE" ng-show="shift == 59">AUTOMOBILE</option>
+					 <option value="IF">INFORMATION TECHNOLOGY</option>
+					 </select></div>
+					 <div ng-show="branch1" >
+					 <label>Staff Name</label>  
+                     <select ng-model="staff_id" class="form-control" required>
+					         <option ng-repeat="item in staff" value="{{item.staff_id}}">{{item.fname}} {{item.mname}} {{item.lname}}</option>
+					</select></div>
+                       
+                     <br>
+						
+                       <br /><div class="col-sm-12 controls">
+                                  <button type="submit" ng-disabled="stud_form.$invalid" data-toggle="modal" data-target="#myModal" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-log-in"></i> ADD SUBJECT</button>
+                              </div><br /><br>   </div></div>
+							  
+          
+		  
+		  
+
+<div class="container-fluid">
+    <div class="row">
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+<div class="modal-content"><form>
+      <div class="modal-body">
+        
+		<label ng-hide="showmsg!='1'">This subject is already assigned to a Staff, do you want to update details?</label>		  
+		<label ng-show="showmsg!=1" ><h3>{{showmsg}}</h3></label>					  
+      </div>
+      <div class="modal-footer">
+	  <a href="staff.html"><button type="button" ng-show="showmsg!=1" class="btn btn-block btn-sm btn-primary">OK</button></a>
+        <button type="submit" class="btn btn-primary" ng-click="insertDat()" ng-show="showmsg==1" ><i class="glyphicon glyphicon-log-in"></i> update </button><button ng-hide="showmsg!=1" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> </form>
+    </div>
+
+</div>
+</div>
+
+  </div>
+</div>
+		  
+		  
+		  
+                </form>   
+                      
+                  </div>
+					  </div>
+        <div class="col-xs-12 col-sm-9">
+		
+                  
+           </div>  
+		   </div>  
+      </body>  
+ </html>
+ <script>
+ 
+ var app = angular.module("myapp",[]);  
+ app.controller("usercontroller", function($scope, $http){  
+      $scope.insertData = function(){
+			$scope.flag=0;
+           $http.post("http://192.168.1.2/www11/subject_assign.php",  {'sub_code':$scope.sub_code, 'shift':$scope.shift,'branch':$scope.branch,'staff_id':$scope.staff_id,'flag':$scope.flag}  
+           ).success(function(data){  
+				$scope.showmsg=data; 
+           });  
+      }
+	  $scope.insertDat = function(){
+			$scope.flag=2;
+           $http.post("http://192.168.1.2/www11/subject_assign.php",  {'sub_code':$scope.sub_code, 'shift':$scope.shift,'branch':$scope.branch,'staff_id':$scope.staff_id,'flag':$scope.flag}  
+           ).success(function(data){  
+				$scope.showmsg=data; 
+           });  
+      }
+	 $scope.email=localStorage.getItem('email'); 
+	  $scope.type=localStorage.getItem('type');
+	  
+	  $scope.FetchStaff = function(){ 
+			$scope.flag=1;  
+           $http.post("http://192.168.1.2/www11/subject_assign.php",{'shift1':$scope.shift1, 'branch1':$scope.branch1, 'flag':$scope.flag}  
+           ).success(function(data){   
+                $scope.staff=data;
+
+           });  
+      }
+	  
+	  $scope.FetchSub = function(){ 
+			$scope.flag=3;  
+           $http.post("http://192.168.1.2/www11/subject_assign.php",{'shift':$scope.shift, 'branch':$scope.branch, 'flag':$scope.flag, 'sub_sem':$scope.sub_sem,'sub_scheme':$scope.sub_scheme}  
+           ).success(function(data){   
+                $scope.subj=data;
+		});  
+      }
+	  
+	  $scope.logout = function(){
+		//localStorage.removeItem("key");
+		localStorage.clear();
+		window.location.href = "index.html";
+		}
+	  
+ });  
+ </script>
